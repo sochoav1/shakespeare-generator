@@ -1,5 +1,5 @@
 # Usar una imagen base de Python
-FROM python:3.9
+FROM python:3.12
 
 # Establecer el directorio de trabajo en el contenedor
 WORKDIR /app
@@ -13,11 +13,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar el resto del código fuente del proyecto al contenedor
 COPY . .
 
+# Crear el directorio para guardar el modelo
+RUN mkdir -p /app/shakespeare_ml/trained_models
+
 # Instalar el proyecto
 RUN pip install -e .
 
-# Exponer el puerto en el que se ejecutará la aplicación
-EXPOSE 8000
-
-# Comando para ejecutar la aplicación
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Comando para ejecutar el script de entrenamiento
+CMD ["python", "-m", "shakespeare_ml.scripts.train_model"]
