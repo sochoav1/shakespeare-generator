@@ -3,9 +3,11 @@ import sys
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-from shakespeare_ml.config import *
-from shakespeare_ml.utils.data_loader import load_shakespeare_data, process_data
-
+#TODO verificar estas importaciones
+# from shakespeare_ml.config import *
+# from shakespeare_ml.utils.data_loader import load_shakespeare_data, process_data
+from ..utils.data_loader import load_shakespeare_data, process_data
+from ...config import *
 
 from ...config import SHAKESPEARE_DATA
 # Hyperparameters
