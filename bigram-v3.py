@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
+import os
 
 # Hyperparameters
 batch_size = 32
@@ -168,3 +169,6 @@ for iter in range(max_iters):
 
 context = torch.zeros((1, 1), dtype=torch.long, device=device)
 print(decode(m.generate(context, max_new_tokens=500)[0].tolist()))
+
+model_save_path = 'modelo_lenguaje.pth'
+torch.save(model.state_dict(), model_save_path)
