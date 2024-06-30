@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Entornos virtuales
+venv/
+env/
+*.env
+
+# IDEs
+.vscode/
+.idea/
+
+# Archivos de sistema
+.DS_Store
+
+# Archivos de log
+*.log
+
+# Archivos de modelo
+*.pth
+*.pt
+
+# Directorios de construcción
+build/
+dist/
+*.egg-info/
+
+# Archivos de configuración local
+config_local.py
