@@ -85,7 +85,29 @@ class Head(nn.Module):
         out = weights @ v # (B, T, T) @ (B, T, hs) -> (B, T, hs)
         return out
         
+
+
+class MultiHeadAttention(nn.Module):
+    """ a multi-head attention module """
+    def __init__(self, n_heads, head_size):
+        super().__init__()
+        self.heads = nn.ModuleList([Head(head_size) for _ in range(n_heads)])
         
+    def forward(self, x):
+        return torch.cat([h(x) for h in self.heads], dim=-1)
+                                
+                                
+
+class FeedForward(nn.Module):
+    """ a simple feed-forward module """
+    def __init__(self, n_embed):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(n_embed, n_embed),
+            nn.ReLU(),
+        )
+    def forward(self, x):
+        return self.net(x)
 class BigramLanguageModel(nn.Module):
 
     def __init__(self):
@@ -93,8 +115,8 @@ class BigramLanguageModel(nn.Module):
         # each token directly reads off the logits for the next token from a lookup table
         self.token_embedding_table = nn.Embedding(vocab_size, n_embed)
         self.position_embedding_table = nn.Embedding(block_size, n_embed)
+        self.sa_head = MultiHeadAttention(4, n_embed//4)
         self.lm_head = nn.Linear(n_embed, vocab_size)
-        self.sa_head = Head(n_embed)
     def forward(self, idx, targets=None):
         B, T = idx.shape
         # idx and targets are both (B,T) tensor of integers
