@@ -16,17 +16,20 @@ class Config:
     MODEL_PATH = os.path.join(TRAINED_MODELS_DIR, 'shakespeare_model.pth')
 
     # Configuración del modelo
-    BATCH_SIZE = 32
-    BLOCK_SIZE = 8
-    MAX_ITERS = 1200
+    SHAKESPEARE_DATA = 'data/tinyshakespeare.txt'
+    BATCH_SIZE = 64
+    BLOCK_SIZE = 256  # Match this with the checkpoint
+    MAX_ITERS = 5000
     EVAL_INTERVAL = 500
-    LEARNING_RATE = 1e-4
+    LEARNING_RATE = 3e-4
     DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
-    N_EMBED = 32
-    N_HEADS = 2
-    N_LAYERS = 2
+    EVAL_ITERS = 200
+    N_EMBED = 384  # Match this with the checkpoint
+    N_HEADS = 6    # Match this with the checkpoint
+    N_LAYERS = 6   # Match this with the checkpoint
     DROPOUT = 0.2
     SEED = 1337
+    
     # Configuración de la API
     API_HOST = "0.0.0.0"
     API_PORT = 8000

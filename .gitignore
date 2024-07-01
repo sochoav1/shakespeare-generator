@@ -29,3 +29,5 @@ dist/
 
 # Archivos de configuración local
 config_local.py
+node_modules/
+__pycache__
