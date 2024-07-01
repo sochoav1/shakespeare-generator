@@ -1,13 +1,14 @@
-import axios from 'axios';
+import axios from 'axios'; // Importa Axios para hacer solicitudes HTTP
+import { Bookmark } from 'lucide-react';
 import React, { useState } from 'react';
-import './App.css';
+import { TypeAnimation } from 'react-type-animation';
 
-const App = () => {
+const ShakespeareTextGenerator = () => {
   const [maxTokens, setMaxTokens] = useState(100);
   const [generatedText, setGeneratedText] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleGenerateText = async () => {
+  const handleGenerate = async () => {
     setLoading(true);
     try {
       const response = await axios.post('http://localhost:8000/generate', {
@@ -22,10 +23,11 @@ const App = () => {
   };
 
   return (
-    <div className="App min-h-screen bg-amber-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-amber-50 flex items-center justify-center p-4">
       <div className="max-w-2xl w-full bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="bg-amber-700 text-white p-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold">Shakespeare Text Generator</h1>
+          <Bookmark className="w-6 h-6" />
         </div>
         <div className="p-6">
           <div className="mb-4">
@@ -41,7 +43,7 @@ const App = () => {
             />
           </div>
           <button
-            onClick={handleGenerateText}
+            onClick={handleGenerate}
             disabled={loading}
             className="w-full bg-amber-600 text-white py-2 px-4 rounded-md hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-opacity-50 transition duration-150 ease-in-out disabled:opacity-50"
           >
@@ -49,7 +51,13 @@ const App = () => {
           </button>
           <div className="mt-6 bg-amber-50 p-4 rounded-md min-h-[200px]">
             {generatedText && (
-              <p style={{ fontSize: '1em', whiteSpace: 'pre-wrap' }}>{generatedText}</p>
+              <TypeAnimation
+                sequence={[generatedText]}
+                wrapper="p"
+                cursor={true}
+                repeat={1}
+                style={{ fontSize: '1em', whiteSpace: 'pre-wrap' }}
+              />
             )}
           </div>
         </div>
@@ -58,4 +66,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default ShakespeareTextGenerator;
