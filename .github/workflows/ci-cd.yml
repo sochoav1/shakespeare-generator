@@ -44,14 +44,11 @@ jobs:
   build-and-prepare:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/CI/CD' && github.event_name == 'push'
     steps:
     - uses: actions/checkout@v2
     - name: Build application
       run: |
-        # Aquí puedes añadir comandos para construir tu aplicación
-        echo "Construyendo la aplicación..."
-        # Por ejemplo:
         # cd frontend && npm run build
         # cd backend && python -m build
     - name: Create release package
