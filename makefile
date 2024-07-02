@@ -1,6 +1,9 @@
-runServer:
+start-back:
 	uvicorn backend.main:app --reload
 
+start-front:
+	cd frontend && npm start
+	
 install:
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
